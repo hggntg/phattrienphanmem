@@ -1,0 +1,78 @@
+{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/file/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "fileservice",
+          "Port": "80"
+        }
+      ],
+      "UpstreamHeaderTransform": {
+        "X-Origin": "apigateway",
+        "X-Note": "from:apigateway;to:fileservice",
+        "X-Id": "d406ad44627565b18bedcb6ce3ea3cb3"
+      },
+      "UpstreamPathTemplate": "/api/file/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/account/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/account/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/auth/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/auth/login"
+    },
+    {
+      "DownstreamPathTemplate": "/api/story/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "onlinereading.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/story/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/category/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "onlinereading.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/category/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/api/tag/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "onlinereading.api",
+          "Port": "80"
+        }
+      ],
+      "UpstreamPathTemplate": "/api/tag/{catchAll}"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:80"
+  }
+}

@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - OnlineReading(Admin)</title>
+    <link rel="icon" href="~/images/logo_64_icon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="~/images/logo_64_icon.ico" type="image/x-icon" />
+
+    <environment include="Development">
+        <!-- plugins:css -->
+        <link rel="stylesheet" href="~/template/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="~/template/vendors/css/vendor.bundle.base.css">
+        <link rel="stylesheet" href="~/template/css/style.css" />
+        <link rel="stylesheet" href="~/css/style.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo" href="/"><img src="~/images/logo_256.png" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="/"><img src="~/images/logo_128.png" alt="logo" /></a>
+            </div>
+            <div class="navbar-menu-wrapper d-flex align-items-stretch">
+                <ul class="navbar-nav navbar-nav-right">
+                    <li class="nav-item nav-profile dropdown">
+                        <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                            <div class="nav-profile-img">
+                                <img id="userAvatar" src="images/faces/face1.jpg" alt="image">
+                                <span class="availability-status online"></span>
+                            </div>
+                            <div class="nav-profile-text">
+                                <p class="mb-1 text-black" id="userName"> </p>
+                            </div>
+                        </a>
+                        <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+                            <a class="dropdown-item" onclick="signout()" style="cursor: pointer">
+                                <i class="mdi mdi-logout mr-2 text-primary"></i>
+                                Đăng xuất
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+                <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <span class="mdi mdi-menu"></span>
+                </button>
+            </div>
+        </nav>
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_sidebar.html -->
+            <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/story/choose-category">
+                            <span class="menu-title">Đăng truyện</span>
+                            <i class="mdi mdi mdi-auto-upload menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/story/list">
+                            <span class="menu-title">Danh sách truyện</span>
+                            <i class="mdi mdi-book menu-icon"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user">
+                            <span class="menu-title">Quản lý người dùng</span>
+                            <i class="mdi mdi-account menu-icon"></i>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    @RenderBody()
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2017 <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap Dash</a>. All rights reserved.</span>
+                        <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="mdi mdi-heart text-danger"></i></span>
+                    </div>
+                </footer>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+    </div>
+    <environment include="Development">
+        <!-- plugins:js -->
+        <script src="~/template/vendors/js/vendor.bundle.base.js"></script>
+        <script src="~/template/vendors/js/vendor.bundle.addons.js"></script>
+        <!-- endinject -->
+        <!-- Plugin js for this page-->
+        <!-- End plugin js for this page-->
+        <!-- inject:js -->
+        <script src="~/template/js/off-canvas.js"></script>
+        <script src="~/template/js/misc.js"></script>
+        <!-- endinject -->
+        <!-- Custom js for this page-->
+        <script src="~/template/js/dashboard.js"></script>
+        <script src="~/js/utilities.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
+                crossorigin="anonymous"
+                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+    <script>
+        function signout() {
+            removeCookie("accessToken");
+            location.href = "login";
+        }
+        (function () {
+            if (!window.userInfo) {
+                var userInfo = b64DecodeUnicode(getCookie("userInfo"));
+                if (userInfo) {
+                    window.userInfo = JSON.parse(userInfo);
+                }
+            }
+            var userName = document.getElementById("userName");
+            userName.innerHTML = window.userInfo.FirstName + " " + window.userInfo.LastName;
+            var userAvatar = document.getElementById("userAvatar");
+            if (!window.userInfo.Avatar || window.userInfo.Avatar === "unknown") {
+                window.userInfo.Avatar = "/images/default.png"
+            }
+            userAvatar.src = window.userInfo.Avatar;
+            if (!window.accessToken) {
+                var accessToken = getCookie("accessToken");
+                window.accessToken = accessToken;
+            }
+        }) ();
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

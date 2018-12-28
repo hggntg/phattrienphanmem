@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "Đăng truyện";
+    ErrorView Error = ViewBag.Error;
+}
+@model WebAdmin.Models.StoryAggregate
+
+@if (Error != null && Error.HasError)
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.Raw(Error.Message)
+    </div>
+}
+else
+{
+    <link href="~/lib/summernote/dist/summernote-bs4.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/lib/bootstrap-select/dist/css/bootstrap-select.min.css">
+    <div class="col-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <form class="forms-sample" method="post" action="/story/create">
+                    <input type="hidden" id="StoryInfo.Id" value="@Model.StoryInfo.Id" name="StoryInfo.Id" />
+                    <input type="hidden" id="StoryInfo.UserId" value="@Model.StoryInfo.UserId" name="StoryInfo.UserId" />
+                    <input type="hidden" id="StoryInfo.CategoryId" value="@Model.StoryInfo.CategoryId" name="StoryInfo.CategoryId" />
+                    <div class="form-group">
+                        <label for="Status">Tên</label>
+                        <input type="text" class="form-control" id="StoryInfo.Name" placeholder="Tên truyện" name="StoryInfo.Name" value="@Model.StoryInfo.Name">
+                    </div>
+                    @*<div class="form-group">
+                        <label for="Status">Trạng thái</label>
+                        <select class="form-control" id="StoryInfo.Status" value="@Model.StoryInfo.Status">
+                            <option value="Draft">Bản nháp</option>
+                            <option value="Publish">Đã đăng</option>
+                        </select>
+                    </div>*@
+                    <div class="form-group">
+                        <label for="Content">Nội dung truyện</label>
+                        <div id="summernote"></div>
+                        <input type="hidden" class="form-control" id="Content" name="StoryInfo.Content" value="@Model.StoryInfo.Content">
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleFormControlSelect2">Thể loại</label>
+                        <select class="form-control selectpicker" id="Tags" name="Tags[]" multiple>
+                            @foreach (Tag Tag in ViewBag.Tags)
+                            {
+                                <option value="@Tag.Id">@Tag.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-gradient-primary mr-2">Tạo</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    @section scripts{
+        <script src="~/lib/summernote/dist/summernote-bs4.js"></script>
+        <script src="~/lib/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+        <script>
+            $('#summernote').summernote({
+                toolbar: [
+                    ['style', ['bold', 'italic', 'underline', 'clear']],
+                    ['font', ['strikethrough', 'superscript', 'subscript']],
+                    ['fontsize', ['fontsize']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['height', ['height']]
+                ],
+                tabsize: 2,
+                height: 300
+            });
+            $('#summernote').on('summernote.change', function (we, contents, $editable) {
+                var content = document.getElementById("Content");
+                content.value = contents;
+            });
+            $('.selectpicker').on('change', function () {
+                selected = $('.selectpicker').val()
+                console.log(selected); 
+            });
+        </script>
+    }
+}

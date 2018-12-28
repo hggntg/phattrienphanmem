@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "Chọn loại hình";
+}
+@model List<Category>
+<div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body" style="display:flex; justify-content: space-around">
+            @foreach (Category Cate in Model)
+            {
+                <a class="btn btn-sm btn-gradient-primary" style="font-size: 25px; height: 75px; width: 300px; display:flex; align-items:center; justify-content: center" href="/story/create?cate=@Cate.Id">@Cate.Name</a>
+            }
+        </div>
+    </div>
+</div>

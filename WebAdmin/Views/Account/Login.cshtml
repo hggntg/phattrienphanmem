@@ -1,0 +1,73 @@
+﻿
+@{
+    ViewData["Title"] = "Đăng nhập";
+}
+@model LoginModel
+<style>
+    .auth {
+        background: var(--primary);
+    }
+
+
+    a.text-primary, a.text-primary:hover, a.text-primary:focus {
+        color: var(--secondary) !important;
+    }
+
+    .form-check .form-check-label input[type="checkbox"] + .input-helper:before {
+        border-color: var(--secondary);
+    }
+
+    .text-muted, .preview-list .preview-item .preview-item-content p .content-category {
+        color: var(--secondary-light) !important;
+    }
+</style>
+<div class="content-wrapper d-flex align-items-center auth">
+    <div class="row w-100">
+        <div class="col-lg-4 mx-auto">
+            <div class="auth-form-light text-left p-5">
+                <div class="brand-logo">
+                    <img src="~/images/logo_128.png">
+                </div>
+                <h4>Xin chào, bắt đầu với bước đầu tiên nào.</h4>
+                <h6 class="font-weight-light">Đăng nhập để tiếp tục.</h6>
+                <form class="pt-3" method="post" action="/login">
+                @if (Model != null)
+                {
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-lg" id="username" name="Username" placeholder="Nhập tên tài khoản" value="@Model.Username">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-lg" id="password" name="Password" placeholder="Nhập mật khẩu" value="@Model.Password">
+                    </div>
+                }
+                else
+                {
+                    <div class="form-group">
+                        <input type="text" class="form-control form-control-lg" id="username" name="Username" placeholder="Nhập tên tài khoản">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control form-control-lg" id="password" name="Password" placeholder="Nhập mật khẩu">
+                    </div>
+                }
+            <div class="mt-3">
+                <input type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" value="ĐĂNG NHẬP" />
+            </div>
+            </form>
+        </div>
+        @{
+            ErrorView Error = (ErrorView)ViewBag.Error;
+        }
+        @if (Error != null && Error.HasError)
+        {
+            <div class="alert alert-danger" role="alert">
+                @Html.Raw(Error.Message)
+            </div>
+        }
+        else
+        {
+
+        }
+    </div>
+</div>
+</div>
+

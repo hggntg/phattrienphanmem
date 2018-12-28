@@ -1,0 +1,37 @@
+﻿
+<style>
+    .row {
+        justify-content: center;
+    }
+    h2 {
+        color: #212121;
+    }
+</style>
+<div class="content-wrapper d-flex align-items-center">
+    <div class="row w-100">
+        @if ((string)ViewBag.User != null && (string)ViewBag.User != "")
+        {
+            <h2 id="notiText"></h2>
+            @section scripts {
+                <script>
+                    var user = '@Html.Raw(ViewBag.User)';
+                    user = JSON.parse(user);
+                    var watingTime = 0;
+                    var toggleToken = 0;
+                    setCookie("accessToken", user.AccessToken, 1);
+                    setCookie("userInfo", b64EncodeUnicode(JSON.stringify(user.UserInfo)), 1);
+                    var notiText = document.getElementById("notiText");
+                    showLoadingText("Xin đợi trong giây lát đang chuyển hướng . . .", notiText, 20, function () {
+                        location.href = "/";
+                    });
+                </script>   
+            }
+        }
+        else
+        {
+            <script>
+                location.href = "/login";
+            </script>
+        }
+    </div>
+</div>

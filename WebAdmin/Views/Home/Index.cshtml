@@ -1,0 +1,14 @@
+﻿@{
+    ViewData["Title"] = "Xin chào";
+}
+<div style="height: calc(100vh - 239px); width: 100%; display:flex; justify-content: center; align-items: center">
+    <h2>Xin chào <span id="userNameHello"></span></h2>
+</div>
+@section scripts {
+    <script>
+        (function () {
+            var userName = document.getElementById("userNameHello");
+            userName.innerHTML = window.userInfo.LastName + " " + window.userInfo.FirstName;
+        })();
+    </script>
+}

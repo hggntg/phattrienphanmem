@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - OnlineReading(Admin)</title>
+    <link rel="icon" href="~/images/logo_64_icon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="~/images/logo_64_icon.ico" type="image/x-icon" />
+
+    <environment include="Development">
+        <!-- plugins:css -->
+        <link rel="stylesheet" href="~/template/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="~/template/vendors/css/vendor.bundle.base.css">
+        <link rel="stylesheet" href="~/template/css/style.css" />
+        <link rel="stylesheet" href="~/css/style.css" />
+    </environment>
+</head>
+<body>
+    <div class="container-scroller">
+        <div class="container-fluid page-body-wrapper full-page-wrapper">
+            @RenderBody()
+        </div>
+    </div>
+    <environment include="Development">
+        <!-- plugins:js -->
+        <script src="~/template/vendors/js/vendor.bundle.base.js"></script>
+        <script src="~/template/vendors/js/vendor.bundle.addons.js"></script>
+        <!-- endinject -->
+        <!-- Plugin js for this page-->
+        <!-- End plugin js for this page-->
+        <!-- inject:js -->
+        <script src="~/template/js/off-canvas.js"></script>
+        <script src="~/template/js/misc.js"></script>
+        <!-- endinject -->
+        <!-- Custom js for this page-->
+        <script src="~/template/js/dashboard.js"></script>
+        <script src="~/js/utilities.js"></script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

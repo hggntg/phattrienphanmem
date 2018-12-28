@@ -1,0 +1,56 @@
+﻿
+@{
+    ViewData["Title"] = "Đọc truyện";
+}
+@model List<WebAdmin.Models.StoryAggregate>
+<style>
+    .page-body-wrapper {
+        display: block;
+    }
+    .container{
+        padding-top:45px;
+        padding-bottom: 100px;
+    }
+    .card{
+        box-shadow:rgba(0,0,0,0.4) 1px 1px 1px 1px;
+        margin-bottom: 15px;
+    }
+    .card-img-top{
+        height:  200px;
+    }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/reading">OnlineReading</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+<div style="text-align:center">
+    <img src="~/images/banner3.jpg" />
+</div>
+<br />
+<br />
+<br />
+<h3>Các truyện có trên trang</h3>
+<div class="container">
+    @foreach (StoryAggregate Story in Model)
+    {
+        @if (Story.StoryInfo.Id % 3 == 1)
+        {
+            @Html.Raw("<div class='row'>")
+        }
+        <div class="col">
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" src="~/images/default-story.png" alt="Card image cap">
+                <div class="card-body">
+                    <b>Truyện</b><h5 class="card-title">@Story.StoryInfo.Name</h5>
+                    <a href="/reading/detail/@Story.StoryInfo.Id" class="btn btn-primary">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+        @if (Story.StoryInfo.Id % 3 == 0)
+         {
+            @Html.Raw("</div>")
+        }
+    }
+</div>

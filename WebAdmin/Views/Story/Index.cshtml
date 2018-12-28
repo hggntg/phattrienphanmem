@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Danh sách truyện";
+    ErrorView Error = ViewBag.Error;
+}
+@model List<WebAdmin.Models.StoryAggregate>
+
+@if (Error != null && Error.HasError)
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.Raw(Error.Message)
+    </div>
+}
+else
+{
+    <div class="col-lg-12 grid-margin">
+        <a href="/story/choose-category" class="btn btn-gradient-primary mr-2">Viết truyện mới</a>
+    </div>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Danh sách người dùng</h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+                                Tên
+                            </th>
+                            <th>
+                                Ngày đăng tải
+                            </th>
+                            <th>
+                                Trạng thái
+                            </th>
+                            <th>
+                                Loại truyện
+                            </th>
+                            <th>
+                                Lượt thích
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (StoryAggregate StoryAggreate in Model)
+                        {
+                        <tr>
+                            <td>@StoryAggreate.StoryInfo.Name</td>
+                            <td>@(StoryAggreate.StoryInfo.CreatedDate.Day + "/" + StoryAggreate.StoryInfo.CreatedDate.Month + "/" + StoryAggreate.StoryInfo.CreatedDate.Year )</td>
+                            <td>@(StoryAggreate.StoryInfo.Status == "Draft" ? "Bản nháp" :  "Đã đăng")</td>
+                            <td>@(StoryAggreate.StoryInfo.CategoryId == 1 ? "Truyện Tranh" : "Truyện Chữ")</td>
+                            <td>@StoryAggreate.StoryInfo.Lovings</td>
+                            <td><a href="/story/detail/@StoryAggreate.StoryInfo.Id">Chi tiết</a></td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}

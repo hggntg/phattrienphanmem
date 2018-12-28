@@ -1,0 +1,66 @@
+version: '3.4'
+
+services:
+  db:
+    image: "microsoft/mssql-server-linux"
+    environment:
+        SA_PASSWORD: "Hung7442129"
+        ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+
+  db1:
+    image: "microsoft/mssql-server-linux"
+    environment:
+        SA_PASSWORD: "Hung7442129"
+        ACCEPT_EULA: "Y"
+    ports:
+      - "1434:1433"
+
+  fileservice:
+    image: ${DOCKER_REGISTRY-}fileservice
+    build:
+      context: .
+      dockerfile: FileService/Dockerfile
+    depends_on:
+      - db
+
+  identity:
+    image: ${DOCKER_REGISTRY-}identity
+    build:
+      context: .
+      dockerfile: ../Identity/Dockerfile
+    depends_on:
+      - db
+
+  apigateway:
+    image: ${DOCKER_REGISTRY-}apigateway
+    build:
+      context: .
+      dockerfile: APIGateway/Dockerfile
+    depends_on:
+      - fileservice
+      - identity
+      - onlinereading.api
+
+  webadmin:
+    image: ${DOCKER_REGISTRY-}webadmin
+    build:
+      context: .
+      dockerfile: WebAdmin/Dockerfile
+
+
+  onlinereading.api:
+    image: ${DOCKER_REGISTRY-}onlinereadingapi
+    build:
+      context: .
+      dockerfile: OnlineReading.API/Dockerfile
+    depends_on:
+      - db1
+
+  web:
+    image: ${DOCKER_REGISTRY-}web
+    build:
+      context: .
+      dockerfile: Web/Dockerfile
+

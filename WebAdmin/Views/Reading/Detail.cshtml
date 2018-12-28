@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "Đọc truyện";
+}
+@model WebAdmin.Models.StoryAggregate
+<style>
+    .page-body-wrapper {
+        display: block;
+    }
+
+    .container-fluid {
+        padding-top: 45px;
+        padding-bottom: 100px;
+    }
+
+    .card {
+        box-shadow: rgba(0,0,0,0.4) 1px 1px 1px 1px;
+    }
+
+    .card-img-top {
+        height: 200px;
+    }
+    p{
+        font-size: 20px !important;
+        line-height: 1.35em !important;
+    }
+</style>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/reading">OnlineReading</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+<br />
+<br />
+<br />
+<div class="container">
+    <a href="/reading" class="btn btn-primary" style="margin-bottom:15px">Quay lại</a>
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+            <h2><b>Truyện : </b>@Model.StoryInfo.Name</h2>
+            @Html.Raw(Model.StoryInfo.Content)
+        </div>
+    </div>
+    <a href="/reading" class="btn btn-primary" style="margin-top:15px">Quay lại</a>
+</div>

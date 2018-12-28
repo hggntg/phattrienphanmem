@@ -1,22 +1,19 @@
-#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-#For more information, please see https://aka.ms/containercompat
-
-FROM microsoft/aspnetcore:2.0-nanoserver-1803 AS base
+FROM microsoft/aspnetcore:2.0 AS base
 WORKDIR /app
 EXPOSE 80
 
-FROM microsoft/aspnetcore-build:2.0-nanoserver-1803 AS build
+FROM microsoft/aspnetcore-build:2.0 AS build
 WORKDIR /src
-COPY ["OnlineReading/OnlineReading.csproj", "OnlineReading/"]
-RUN dotnet restore "OnlineReading/OnlineReading.csproj"
+COPY Web/Web.csproj Web/
+RUN dotnet restore Web/Web.csproj
 COPY . .
-WORKDIR "/src/OnlineReading"
-RUN dotnet build "OnlineReading.csproj" -c Release -o /app
+WORKDIR /src/Web
+RUN dotnet build Web.csproj -c Release -o /app
 
 FROM build AS publish
-RUN dotnet publish "OnlineReading.csproj" -c Release -o /app
+RUN dotnet publish Web.csproj -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app .
-ENTRYPOINT ["dotnet", "OnlineReading.dll"]
+ENTRYPOINT ["dotnet", "Web.dll"]

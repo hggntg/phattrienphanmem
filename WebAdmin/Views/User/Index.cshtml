@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "Danh sách người dùng";
+    ErrorView Error = ViewBag.Error;
+}
+@model List<WebAdmin.Models.User>
+
+@if (Error != null && Error.HasError)
+{
+    <div class="alert alert-danger" role="alert">
+        @Html.Raw(Error.Message)
+    </div>
+}
+else
+{ 
+    <div class="col-lg-12 grid-margin">
+        <a href="/user/create" class="btn btn-gradient-primary mr-2">Thêm tài khoản</a>
+    </div>
+    <div class="col-lg-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Danh sách người dùng</h4>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>
+
+                            </th>
+                            <th>
+                                Họ tên
+                            </th>
+                            <th>
+                                Ngày sinh
+                            </th>
+                            <th>
+                                Email
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (User UserInstance in Model)
+                        {
+                            <tr>
+                                <td class="py-1">
+                                    <img src="@UserInstance.RealAvatar()" alt="@UserInstance.FullName()" />
+                                </td>
+                                <td>
+                                    @UserInstance.FullName()
+                                </td>
+                                <td>
+                                    @(UserInstance.DOB.Day + "/" + UserInstance.DOB.Month + "/" + UserInstance.DOB.Year)
+                                </td>
+                                <td>
+                                    @UserInstance.Email
+                                </td>
+                                <td>
+                                    <a href="~/user/@UserInstance.Id">Chi tiết</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
